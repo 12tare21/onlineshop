@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load staticfiles%}
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="This is Tarik's onlineshop page">
+    <meta name="author" content="">
+
+    <title>Onlineshop</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{%static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+
+
+</head>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{%url 'home'%}"><img src="{%static 'images/logo.png'%}" class="img-fluid pb-1" width=32>nlineShop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          {%if user.is_authenticated%}
+          <li class="nav-item pr-2">
+              <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+              <form method="POST" id="logout" action="{% url 'logout'%}">
+                  {%csrf_token%}
+                  <input type="hidden" >
+              </form>
+            </li>
+          {%else%}
+          <li class="nav-item ">
+            <a class="nav-link" href="{%url 'signup'%}">Sign Up</a>
+          </li>
+          <li class="nav-item pr-2">
+            <a class="nav-link" href="{% url 'login'%}">Login</a>
+          </li>
+          {%endif%}
+          <li class="nav-item pt-1">
+            <form class="navbar-form" role="search">
+                <input type="text" class="form-control" placeholder="Search for ..." name="srch-term" id="srch-term">
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<div class="container pt-5"><!--must be because nav hovers content-->
+  <br>
+{% block content%}
+
+{% endblock %}
+</div>
+<!-- Footer -->
+<footer class="py-5 bg-light">
+    <div class="container">
+      <p class="m-0 text-center text-dark">&copy; Tarik Muminović 2018</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'admin/js/vendor/jquery/jquery.min.js'%}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
