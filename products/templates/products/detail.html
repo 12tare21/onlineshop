@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{%block content%}
+
+<div class="container">
+        <div class="row">
+            <div class="col-3">
+                <h1>{{product.title}}</h1>
+                <h5 class="pt-2">Category: <a href="{%url 'category' product.category.slug%}">{{product.category}}</a></h5>
+            </div>
+            <div class="col-4  text-right">
+                    <h5 class="pt-3">Price: {{product.price}}$</h5>
+                    <br>
+                    <h5>Published on {{product.pub_date_preety}}</h5>
+                    <br>
+                    <h5>Added by <a href="{% url 'userpage' product.profile.slug%}">{{product.profile.user}}</a></h5>
+                    <br>
+                    <button type="submit" class="btn btn-primary ">Order Now</button>
+                    <br>
+            </div>
+            <div class="col-5 pt-3">
+                <img src="{{product.image.url}}" class="img-fluid">
+            </div>
+        </div><br><hr>
+        <div class="row">
+            <div class="col-12">
+                <h4>Description: </h4>
+                <p>{{product.description}}</p>
+            </div>
+        </div>
+</div>
+{%endblock%}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{profile.user}}:</h1>
+<div class="row">
+{% for product in products.all %}
+    <div class ="col-4  ">
+        <a href="{%url 'detail' product.slug product.id%}"> 
+            <img src="{{product.image.url}}" class="img-fluid" >
+        </a>
+         <div class="row">
+            <div class="col-6 pt-1">
+                <a href="{%url 'detail' product.slug product.id%}"><h4>{{product.title}}</h4></a>
+                <p>Category: <a href="{%url 'category' product.category.slug%}">{{product.category}}</a></p>
+            </div>
+            <div class="col-6 text-right pt-1">
+                <h4>Price: {{product.price}} $</h4>
+                <p>{{product.pub_date_preety}}</p>
+            </div>
+        </div>
+    </div>
+    
+{% endfor %}
+</div>
+{% endblock  %}

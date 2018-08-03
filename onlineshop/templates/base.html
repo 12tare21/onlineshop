@@ -12,7 +12,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{%static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
-
+    <link href="{% static 'bootstrap/css/simple-sidebar.css'%}" rel="stylesheet">
+    <link href="{%static 'iconic/font/css/open-iconic-bootstrap.css'%}" rel="stylesheet">
 
 </head>
 <!-- Navigation -->
@@ -25,13 +26,16 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           {%if user.is_authenticated%}
-          <li class="nav-item pr-2">
-              <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
-              <form method="POST" id="logout" action="{% url 'logout'%}">
-                  {%csrf_token%}
-                  <input type="hidden" >
-              </form>
-            </li>
+          <li class="nav-item pt-2 pr-1">
+              <a href="{%url 'create'%}"><span class="oi oi-plus"></span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+            <form id="logout" action="{%url 'logout'%}" method="POST">
+              {% csrf_token %}
+              <input type="hidden">
+            </form>
+          </li>
           {%else%}
           <li class="nav-item ">
             <a class="nav-link" href="{%url 'signup'%}">Sign Up</a>
@@ -51,14 +55,24 @@
   </nav>
 <div class="container pt-5"><!--must be because nav hovers content-->
   <br>
+  <div class="row">
+  <div id="sidebar" class="col-2 pt-1">
+    <h2>Categories</h2><br>
+      {% for category in categories.all%}
+       <a href="{%url 'category' category.slug  %}">{{category.name}}</a><br>
+      {%endfor%}
+  </div>
+  <div id="content" class="col-10 ">
 {% block content%}
 
 {% endblock %}
+</div> 
+</div>     
 </div>
 <!-- Footer -->
 <footer class="py-5 bg-light">
     <div class="container">
-      <p class="m-0 text-center text-dark">&copy; Tarik Muminović 2018</p>
+      <p class="m-0 text-center text-dark">&copy; Tarik Muminović {{year}}</p>
     </div>
     <!-- /.container -->
   </footer>
@@ -66,3 +80,5 @@
   <!-- Bootstrap core JavaScript -->
   <script src="{% static 'admin/js/vendor/jquery/jquery.min.js'%}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- Dropdown problem solve for bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

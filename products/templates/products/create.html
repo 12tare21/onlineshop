@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="pt-2">Add product:</h2><br>
+{% if error %}
+{{error}}
+{% endif %}
+<form method="POST" action="{%url 'create'%}" enctype="multipart/form-data">
+    {% csrf_token %}
+    Product title:<br>
+    <input type="text" name="title">
+    <br><br>
+    Product price ($):<br>
+    <input type="text" name="price">
+    <br><br>
+    <div class="form-group row col-6">
+        <label for="categories">Select product category:</label>
+        <select class="form-control" name="categories">
+            {% for category in categories %}
+              <option >{{category.name}}</option>
+            {% endfor %}
+        </select>
+    </div> <br>
+    <div class="form-group row col-6">
+    Product description:<br>
+    <textarea class="form-control" rows="5"  name="description"></textarea> 
+    
+    </div><br>
+    Product image:<br>
+    <input type="file" name="image" >
+    <br><br>
+    <input type="submit" class="btn btn-primary" value="Add Product">
+</form>
+{% endblock content %}
