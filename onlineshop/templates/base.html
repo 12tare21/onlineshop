@@ -24,7 +24,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
+          
         <ul class="navbar-nav ml-auto">
+          
           {%if user.is_authenticated%}
           <li class="nav-item pt-2 pr-1">
               <a href="{%url 'create'%}"><span class="oi oi-plus"></span></a>
@@ -44,41 +46,39 @@
             <a class="nav-link" href="{% url 'login'%}">Login</a>
           </li>
           {%endif%}
-          <li class="nav-item pt-1">
-            <form class="navbar-form" role="search">
-                <input type="text" class="form-control" placeholder="Search for ..." name="srch-term" id="srch-term">
-            </form>
+          <li class="nav-item dropdown pr-1">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for category in categories.all%}
+                <a href="{%url 'category' category.slug  %}" class="dropdown-item">{{category.name}}</a>
+              {%endfor%}
+            </div>
           </li>
         </ul>
+        <form class="form-inline my-2 my-lg-0" method="GET" action="{%url 'search'%}">
+          <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{request.GET.q}}">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><span class="oi oi-magnifying-glass"></span></button>
+        </form>
       </div>
     </div>
   </nav>
 <div class="container pt-5"><!--must be because nav hovers content-->
   <br>
-  <div class="row">
-  <div id="sidebar" class="col-2 pt-1">
-    <h2>Categories</h2><br>
-      {% for category in categories.all%}
-       <a href="{%url 'category' category.slug  %}">{{category.name}}</a><br>
-      {%endfor%}
-  </div>
-  <div id="content" class="col-10 ">
 {% block content%}
 
-{% endblock %}
-</div> 
-</div>     
+{% endblock %}    
 </div>
 <!-- Footer -->
 <footer class="py-5 bg-light">
     <div class="container">
       <p class="m-0 text-center text-dark">&copy; Tarik Muminović {{year}}</p>
     </div>
-    <!-- /.container -->
-  </footer>
+</footer>
 
   <!-- Bootstrap core JavaScript -->
   <script src="{% static 'admin/js/vendor/jquery/jquery.min.js'%}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <!-- Dropdown problem solve for bootstrap -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- Dropdown problem solve for bootstrap 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->

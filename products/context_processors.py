@@ -1,5 +1,7 @@
-from .models import Category
+from .models import Category,Product
 from datetime import date
+from django.shortcuts import render
+
 def add_category_to_context(request):
     categories=Category.objects.all()
     return{'categories':categories,}

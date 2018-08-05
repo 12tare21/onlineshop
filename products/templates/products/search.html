@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>{{category.name}}</h1>
+<h1>You searched for: "{{search_input}}"</h1><br>
 <div class="row">
 {% for product in products %}
     <div class ="col-4  ">
@@ -24,17 +24,20 @@
 <hr>
 <div class="pagination">
     <span class="step-links mx-auto">
+        <!--"&" added for pagination search-->
         {% if products.has_previous %}
-            <a href="?page=1"><span class="oi oi-chevron-left"></span><span class="oi oi-chevron-left"></span></a>
-            <a href="?page={{products.previous_page_number}}"> <span class="oi oi-arrow-left"></span></a>
+            <a href="?page=1&q={{search_input}}"><span class="oi oi-chevron-left"></span><span class="oi oi-chevron-left"></span></a>
+            <a href="?page={{products.previous_page_number}}&q={{search_input}}"> <span class="oi oi-arrow-left"></span></a>
         {% endif %}
         <span class="current ">
             page {{products.number}} of {{products.paginator.num_pages}}
         </span>
         {% if products.has_next %}
-            <a href="?page={{products.next_page_number}}"><span class="oi oi-arrow-right"></span></a>
-            <a href="?page={{products.paginator.num_pages}}"><span class="oi oi-chevron-right"></span><span class="oi oi-chevron-right"></span></a>
+            <a href="?page={{products.next_page_number}}&q={{search_input}}"><span class="oi oi-arrow-right"></span></a>
+            <a href="?page={{products.paginator.num_pages}}&q={{search_input}}"><span class="oi oi-chevron-right"></span><span class="oi oi-chevron-right"></span></a>
         {% endif %}
     </span>
 </div>  
-{% endblock  %}
+
+{% endblock content %}
+

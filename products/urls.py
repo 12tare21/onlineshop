@@ -5,4 +5,5 @@ urlpatterns = [
     path(r'<slug:slug>-<int:product_id>',views.detail,name="detail"),
     path(r'categories/<slug:slug>',views.category,name="category"),
     path(r'create',views.create,name='create'),
+    path(r'search',views.search,name='search'),
 ]
