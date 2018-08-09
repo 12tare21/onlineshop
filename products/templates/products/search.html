@@ -1,27 +1,31 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h1>You searched for: "{{search_input}}"</h1><br>
-<div class="row">
+<!--Search page to display all search results-->
+<h1>You searched for: "{{search_input}}"</h1><br><br>
+<!--Search content-->
 {% for product in products %}
-    <div class ="col-4  ">
+<div class="img-thumbnail">
+<div class="row">
+    
+    <div class ="col-4 text-center">
         <a href="{%url 'detail' product.slug product.id%}"> 
-            <img src="{{product.image.url}}" class="img-fluid" >
+            <img src="{{product.image.url}}" class="img-fluid img-thumbnail" style="height:240px">
         </a>
-         <div class="row pt-1">
-            <div class="col-8">
-                <a href="{%url 'detail' product.slug product.id%}"><h4>{{product.title}}</h4></a>
-                <p>Seller: <a href="{% url 'userpage' product.profile.slug%}">{{product.profile.user}}</a></p>
-            </div>
-            <div class="col-4 text-right">
-                <h4>{{product.price}} $</h4>
-                <p>{{product.pub_date_preety}}</p>
-            </div>
-        </div>
     </div>
-{% endfor %}
+    <div class="col-5">
+        <a href="{%url 'detail' product.slug product.id%}"><h2>{{product.title}}</h2></a><br>
+        <p>Seller: <a href="{% url 'userpage' product.profile.slug%}">{{product.profile.user}}</a></p>
+        <p>Category: <a href="{%url 'category' product.category.slug%}">{{product.category}}</a></p>
+    </div>
+    <div class="col-3 text-right pt-1">
+        <h4>Price: {{product.price}} $</h4><br>
+        <p>Published on {{product.pub_date_preety}}</p>
+    </div>
 </div>
+</div><br>
+{% endfor %}
 <hr>
+<!--Pagination-->
 <div class="pagination">
     <span class="step-links mx-auto">
         <!--"&" added for pagination search-->
@@ -37,7 +41,7 @@
             <a href="?page={{products.paginator.num_pages}}&q={{search_input}}"><span class="oi oi-chevron-right"></span><span class="oi oi-chevron-right"></span></a>
         {% endif %}
     </span>
-</div>  
+</div><br>
 
 {% endblock content %}
 

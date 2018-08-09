@@ -1,31 +1,57 @@
 {% extends "base.html" %}
 {%block content%}
-
-<div class="container">
-        <div class="row">
-            <div class="col-3">
-                <h1>{{product.title}}</h1>
-                <h5 class="pt-2">Category: <a href="{%url 'category' product.category.slug%}">{{product.category}}</a></h5>
-            </div>
-            <div class="col-4  text-right">
-                    <h5 class="pt-3">Price: {{product.price}}$</h5>
-                    <br>
-                    <h5>Published on {{product.pub_date_preety}}</h5>
-                    <br>
-                    <h5>Added by <a href="{% url 'userpage' product.profile.slug%}">{{product.profile.user}}</a></h5>
-                    <br>
-                    <button type="submit" class="btn btn-primary ">Order Now</button>
-                    <br>
-            </div>
-            <div class="col-5 pt-3">
-                <img src="{{product.image.url}}" class="img-fluid">
-            </div>
-        </div><br><hr>
-        <div class="row">
-            <div class="col-12">
-                <h4>Description: </h4>
-                <p>{{product.description}}</p>
-            </div>
-        </div>
+<!--Detail page display product details-->
+{% if changed %}
+<!--If product is updated-->
+{{changed}}
+{% endif %}
+<!--Page content-->
+<div class="row">
+<!--title and category of product-->
+<div class="col-md-4">
+    <h1>{{product.title}} </h1>
+    <h5 class="pt-2">Category: <a href="{%url 'category' product.category.slug%}">{{product.category}}</a></h5>
 </div>
+<!--edit,delete,price,pub_date and profile of product-->
+<div class="col-md-3  text-right pt-3">
+    {% if user.is_authenticated and user.username == product.profile.user.username %}
+        <a class="pr-2" href="{%url 'update' product.slug product.id%}"><span class="oi oi-pencil"></span></a>
+        <a href="{%url 'delete' product.slug product.id%}" onclick="return confirm('Are you sure you want to remove {{product.title}} ?')" ><span class="oi oi-delete"></span></a>
+    {% endif %}
+    <h5 class="pt-3">Price: {{product.price}}$</h5>
+    <br>
+    <h5>Published on {{product.pub_date_preety}}</h5>
+    <br>
+    <h5>Added by <a href="{% url 'userpage' product.profile.slug%}">{{product.profile.user}}</a></h5>
+    <br>
+    {% if not user.is_authenticated or not user.username == product.profile.user.username %}
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <!-- Identify your business so that you can collect the payments. -->
+        <input type="hidden" name="business" value="{{user.email}}">
+        <!-- Specify a Buy Now button. -->
+        <input type="hidden" name="cmd" value="_xclick">
+        <!-- Specify details about the item that buyers will purchase. -->
+        <input type="hidden" name="item_name" value="{{product.title}}">
+        <input type="hidden" name="amount" value="{{product.price}}">
+        <input type="hidden" name="currency_code" value="USD">
+        <!-- Display the payment button. -->
+        <input type="submit" class="btn btn-primary " name="submit" border="0" value="Order now" >
+    </form>
+    <br>    
+    {% else %}
+    {% endif %}
+</div>
+<!--product image-->
+<div class="col-md-5 pt-3 text-center">
+    <img src="{{product.image.url}}" class="img-fluid img-thumbnail">
+</div>
+</div><hr>
+<!--descrtiption of product-->
+<div class="row">
+    <div class="col-md-12">
+        <h3>Description: </h3>
+        <p>{{product.description}}</p>
+        
+    </div>
+</div><hr>
 {%endblock%}

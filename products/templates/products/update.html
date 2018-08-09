@@ -1,35 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<!--Product create page-->
-<h2 class="pt-2">Add product:</h2><br>
-{% if error %}
-<!--if input has been incorrect or something is missing-->
-{{error}}
-{% endif %}
-<form method="POST" action="{%url 'create'%}" enctype="multipart/form-data">
+<!--Update already created product-->
+<h1>Update {{product.title}}</h1><br><br>
+<form method="POST" action="{%url 'update' product.slug product.id%}" enctype="multipart/form-data">
     {% csrf_token %}
     Product title:<br>
-    <input type="text" name="title">
+    <input type="text" name="title" value="{{product.title}}">
     <br><br>
     Product price ($):<br>
-    <input type="text" name="price">
+    <input type="text" name="price" value="{{product.price}}">
     <br><br>
     <div class="form-group row col-6">
         <label for="categories">Select product category:</label>
         <select class="form-control" name="categories">
             {% for category in categories %}
-              <option >{{category}}</option>
+                    <option {% if product.category == category %} selected {%endif%}>{{category}}</option>
             {% endfor %}
         </select>
     </div> <br>
     <div class="form-group row col-6">
     Product description:<br>
-    <textarea class="form-control" rows="5"  name="description"></textarea> 
-    
+    <textarea class="form-control" rows="5"  name="description">{{product.description}}</textarea>
     </div><br>
     Product image:<br>
     <input type="file" name="image" >
     <br><br>
-    <input type="submit" class="btn btn-primary" value="Add Product">
+    <input type="submit" class="btn btn-primary" value="Update Product">
 </form><br>
 {% endblock content %}

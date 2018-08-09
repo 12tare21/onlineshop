@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- profile settings page -->
+<h1>Your settings</h1><br>
+<form method="POST" action="{%url 'settings'%}">
+{% csrf_token %}
+<div class="row">
+<div class="col-md-4">
+E-mail:<br>
+<input type="email" name="email" value="{{profile.user.email}}"><br><br>
+Street address:<br>
+<input type="text" name="address" value="{{profile.address}}"><br><br>
+City:<br>
+<input type="text" name="city" value="{{profile.city}}"><br><br>
+Country:<br>
+<input type="text" name="country" value="{{profile.country}}"><br><br>
+</div>
+<div class="col-md-5">
+Bio:<br>
+<textarea name="bio" id="bio" cols="30" rows="7">{{profile.bio}}</textarea><br><br>
+<div class="row">
+<div class="col-5">
+<a href="{%url 'password'%}">Change your password.</a><br>
+<a href="{%url 'delete'%}" onclick="return confirm('Are you sure you want to delete profile ?')" >Delete your profile.</a>
+</div>
+<div class="col-5">
+<input type="submit" value="Save changes" class="btn btn-primary " >
+</div>
+</div>
+</form>
+</div>
+</div>
+<br>
+{% endblock content %}

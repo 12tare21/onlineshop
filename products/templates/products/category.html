@@ -1,13 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-
-<h1>{{category.name}}</h1>
-<div class="row">
+<!--Category page-->
+<h1 class="pt-1">{{category.name}}</h1><hr>
+<div class="row pt-2">
+<!--list of products in this category-->
 {% for product in products %}
     <div class ="col-4  ">
+        <div class="img-thumbnail">
+        <div class="text-center " >
         <a href="{%url 'detail' product.slug product.id%}"> 
-            <img src="{{product.image.url}}" class="img-fluid" >
+            <img src="{{product.image.url}}" class="img-fluid" style="height:240px">
         </a>
+        </div>
          <div class="row pt-1">
             <div class="col-8">
                 <a href="{%url 'detail' product.slug product.id%}"><h4>{{product.title}}</h4></a>
@@ -18,10 +22,12 @@
                 <p>{{product.pub_date_preety}}</p>
             </div>
         </div>
+        </div>
     </div>
 {% endfor %}
 </div>
 <hr>
+<!--Pagination-->
 <div class="pagination">
     <span class="step-links mx-auto">
         {% if products.has_previous %}
@@ -36,5 +42,5 @@
             <a href="?page={{products.paginator.num_pages}}"><span class="oi oi-chevron-right"></span><span class="oi oi-chevron-right"></span></a>
         {% endif %}
     </span>
-</div>  
+</div><br>
 {% endblock  %}
