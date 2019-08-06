@@ -26,6 +26,6 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<directory "C:/xampp/phppgadmin"><br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AllowOverride AuthConfig<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Require all granted<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</directory>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\</directory>
 5. Restart Apache.
 6. You should now be able to use phpPgAdmin when you visit http://localhost/phppgadmin.
