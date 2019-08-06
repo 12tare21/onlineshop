@@ -1,4 +1,4 @@
-#Setup project to work in xampp with Postgresql on Windows
+# Setup project to work in xampp with Postgresql on Windows
 
 ## Required
 
